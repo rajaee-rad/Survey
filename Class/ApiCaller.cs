@@ -19,7 +19,7 @@ namespace CustomerSurveySystem.Class
 
             }
 
-            request.AddHeader("Authorization", "Bearer " + QuestionnaireAuthorize.GetToken());
+            request.AddHeader("Authorization", "Bearer " + await QuestionnaireAuthorize.GetToken());
             return await client.ExecuteAsync(request);
         }
     }

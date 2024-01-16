@@ -2,7 +2,7 @@
 
 namespace CustomerSurveySystem.Models
 {
-    public class QuestionnaireResponse<T>
+    public class Response<T>
     {
         public bool Success { get; set; }
         public IList<T> Data { get; set; }

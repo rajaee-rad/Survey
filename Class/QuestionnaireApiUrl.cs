@@ -2,17 +2,16 @@
 {
     public static class QuestionnaireApiUrl
     {
-        private const string Prefix = "/api/Questionnaire";
-        private const string AnsweringService = "/AnsweringService";
+        private const string Prefix = "/api/crm/QuestionnaireService";
 
-        public const string GetDomains = Prefix + AnsweringService + "/GetDomains";
-        public const string GetQuestionnairesByDomainId = Prefix + AnsweringService + "/GetQuestionnairesByDomainId";
-        public const string GetQuestionnaireForPerson = Prefix + AnsweringService + "/GetQuestionnaireForPerson";
-        public const string NextStep = Prefix + AnsweringService + "/NextStep";
-        public const string GetPolls = Prefix + AnsweringService + "/GetPolls";
-        public const string GetPollById = Prefix + AnsweringService + "/GetPollById";
-        public const string GetPollQuestionsByPollId = Prefix + AnsweringService + "/GetPollQuestionsByPollId";
-        public const string GetDomainIdByLocation = Prefix + AnsweringService + "/GetDomainIdByLocation";
-        public const string GetAnswerSheetIdByQuestionnaireId = Prefix + AnsweringService + "/GetAnswerSheetIdByQuestionnaireId";
+        public const string GetDomains = Prefix  + "/GetDomains";
+        public const string QuestionnairesByDomainId = Prefix  + "/QuestionnairesByDomainId";
+        public const string GetQuestionnaireForPerson = Prefix  + "/GetQuestionnaireForPerson";
+        public const string NextStep = Prefix  + "/NextStep";
+        public const string GetPolls = Prefix  + "/GetPolls";
+        public const string GetPollById = Prefix  + "/GetPollById";
+        public const string GetPollQuestionsByPollId = Prefix  + "/GetPollQuestionsByPollId";
+        public const string GetDomainIdByLocation = Prefix  + "/GetDomainIdByLocation";
+        public const string GetAnswerSheetIdByQuestionnaireId = Prefix  + "/GetAnswerSheetIdByQuestionnaireId";
     }
 }
