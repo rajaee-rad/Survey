@@ -175,6 +175,7 @@
     <Compile Include="Class\ApiCaller.cs" />
     <Compile Include="Class\QuestionnaireApiUrl.cs" />
     <Compile Include="Class\QuestionnaireAuthorize.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Models\QuestionnaireResponse.cs" />
     <Compile Include="Models\TokenResponse.cs" />
@@ -224,8 +225,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
