@@ -7,7 +7,7 @@
         <h2>لیست نظرسنجی ها</h2>
         @foreach (var item in Model)
         {
-            <li>@item.Title</li>
+            <a href="@item.Id">@item.Title</a>
         }
     </div>
 </div>

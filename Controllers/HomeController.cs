@@ -24,7 +24,5 @@ namespace CustomerSurveySystem.Controllers
             var questionnairesOfWebsite = await _service.GetQuestionnairesOfWebsite();
             return View(questionnairesOfWebsite);
         }
-
-       
     }
 }
