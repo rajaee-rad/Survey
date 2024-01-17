@@ -8,23 +8,8 @@ namespace CustomerSurveySystem.Services.Interface
 {
     public interface IService
     {
-        Task<List<Questionnaire>> GetQuestionnairesOfWebsite();
+        Task<IList<Questionnaire>> GetQuestionnairesOfWebsite();
 
-        List<QuestionDto> NextStep(Guid answerSheetId, Guid? currentStepId, Guid questionnaireId,
-            IEnumerable<Data> answerList);
+        Task<IList<QuestionDto>> NextStep(NextStepRequestDto requestDto);
     }
-
-    
-   
-
-   
-
-   
-  
-
-   
-    
-
-   
-   
 }

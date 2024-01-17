@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CustomerSurveySystem.Class;
 using CustomerSurveySystem.Models;
 using CustomerSurveySystem.Services.Interface;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -13,7 +14,7 @@ namespace CustomerSurveySystem.Services.Class
 {
     public class Service : IService
     {
-        public async Task<List<Questionnaire>> GetQuestionnairesOfWebsite()
+        public async Task<IList<Questionnaire>> GetQuestionnairesOfWebsite()
         {
             try
 
@@ -30,7 +31,7 @@ namespace CustomerSurveySystem.Services.Class
 
                 var result = JsonConvert
                     .DeserializeObject<Response<Questionnaire>>(response.Content)
-                    ?.Data.ToList();
+                    ?.Data;
 
                 return result;
             }
@@ -41,7 +42,32 @@ namespace CustomerSurveySystem.Services.Class
 
             return null;
         }
-        
-        
+
+        public async Task<IList<QuestionDto>> NextStep(NextStepRequestDto requestDto)
+        {
+            try
+            {
+                var param = new
+                {
+                    answerSheetId = requestDto.AnswerSheetId,
+                    currentStepId = requestDto.CurrentStepId,
+                    questionnaireId = requestDto.QuestionnaireId,
+                    answerList = requestDto.AnswerList
+                };
+                var response = await ApiCaller.Call(QuestionnaireApiUrl.NextStep, param);
+                if (!response.IsSuccessful || response.Content == null)
+                {
+                    return null;
+                }
+
+                var result = JsonConvert.DeserializeObject<Response<QuestionDto>>(response.Content)?.Data;
+                return result;
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Fatal($"Error at NextStep! {e.Message}");
+            } 
+            return null;
+        }
     }
 }
