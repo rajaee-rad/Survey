@@ -1,4 +1,5 @@
-﻿@{
+﻿@Model CustomerSurveySystem.Models.Questionnaire
+@{
     ViewBag.Title = "بیمه پاسارگاد";
 }
 
@@ -7,7 +8,8 @@
         <h2>لیست نظرسنجی ها</h2>
         @foreach (var item in Model)
         {
-            <a href="@item.Id">@item.Title</a>
+           @Html.ActionLink((string)item.Title, "Index", "Questionnaire", new {questionnaireId = item.Id}, null)
+           <br/>
         }
     </div>
 </div>

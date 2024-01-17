@@ -25,6 +25,7 @@ namespace CustomerSurveySystem.Controllers
                 QuestionnaireId = questionnaireId
             };
             var result = await _service.NextStep(dto);
+            
             return View(result);
         }
     }
