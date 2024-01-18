@@ -19,7 +19,7 @@ namespace CustomerSurveySystem.Controllers
         {
            return View();
         }
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Login(string nationalCode, string password)
         {
             var result =  await _service.Login(nationalCode, password);
@@ -34,7 +34,7 @@ namespace CustomerSurveySystem.Controllers
                 return null;
             }
         }
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public async Task<string> Signup(string nationalCode)
         {
             var result =  await _service.Signup(nationalCode);
@@ -42,7 +42,7 @@ namespace CustomerSurveySystem.Controllers
 
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Logout()
         {
             FormsAuthentication.SignOut();

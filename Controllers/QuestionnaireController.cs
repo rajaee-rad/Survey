@@ -20,8 +20,12 @@ namespace CustomerSurveySystem.Controllers
         {
             _service = service;
         }
-        public async Task<ActionResult> Index(Guid questionnaireId)
+        public async Task<ActionResult> Index(Guid questionnaireId, bool needLogin)
         {
+            if (needLogin && !User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Account");
+            }
             var dto = new NextStepRequestDto()
             {
                 QuestionnaireId = questionnaireId

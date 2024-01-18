@@ -1,5 +1,4 @@
-﻿@Model dynamic
-@{
+﻿@{
     ViewBag.Title = "بیمه پاسارگاد";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,7 +8,8 @@
         <h2>لیست نظرسنجی ها</h2>
         @foreach (var item in Model)
         {
-           @Html.ActionLink((string)item.Title, "Index", "Questionnaire", new {questionnaireId = item.Id}, null)
+           @Html.ActionLink((string)item.Title, "Index", "Questionnaire", 
+               new {questionnaireId = item.Id, needLogin = @item.NeedLogin}, null)
            <br/>
         }
     </div>
