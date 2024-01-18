@@ -189,7 +189,8 @@
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Models\Data.cs" />
-    <Compile Include="Models\MutiChiose.cs" />
+    <Compile Include="Models\FinalizedQuestionDto.cs" />
+    <Compile Include="Models\MultiChoiceData.cs" />
     <Compile Include="Models\NextStepRequestDto.cs" />
     <Compile Include="Models\Number.cs" />
     <Compile Include="Models\OneChiose.cs" />
