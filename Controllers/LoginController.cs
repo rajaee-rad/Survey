@@ -3,13 +3,12 @@ using System.Web.Mvc;
 
 namespace CustomerSurveySystem.Controllers
 {
-    public class LoginController : ApiController
+    public class LoginController : Controller
     {
         // GET
-        public ActionResult Login()
+        public ActionResult Index()
         {
-            //return View();
-            return null;
+           return View();
         }
     }
 }
