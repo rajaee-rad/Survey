@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Results;
 using CustomerSurveySystem.Class;
 using CustomerSurveySystem.Models;
 using CustomerSurveySystem.Services.Interface;
@@ -68,6 +69,55 @@ namespace CustomerSurveySystem.Services.Class
                 Log.Logger.Fatal($"Error at NextStep! {e.Message}");
             } 
             return null;
+        }
+
+        public async Task<string>  Signup(string nationalCode)
+        {
+            try
+            {
+                var param = new
+                {
+                    nationalCode = nationalCode
+                };
+                var result =  ApiCaller.Call(QuestionnaireApiUrl.Signup, param).Result;
+                if (result.IsSuccessful != true && result.Content == null)
+                {
+                    return  "Error";
+                }
+
+                return "ok";
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Fatal($"Error at Signup! {e.Message}");
+            }
+
+            return "";
+        }
+
+        public async Task<bool> Login(string nationalCode, string password)
+        {
+            try
+            {
+                var param = new
+                {
+                    nationalCode = nationalCode,
+                    password = password
+                };
+                var result = await ApiCaller.Call(QuestionnaireApiUrl.Login, param);
+                if (result.IsSuccessful != true && result.Content == null)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Fatal($"Error at Login! {e.Message}");
+            }
+
+            return false;
         }
     }
 }

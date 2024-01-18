@@ -8,6 +8,8 @@
         public const string QuestionnairesByDomainId = Prefix  + "/QuestionnairesByDomainId";
         public const string GetQuestionnaireForPerson = Prefix  + "/GetQuestionnaireForPerson";
         public const string NextStep = Prefix  + "/NextStep";
+        public const string Login = "/api/crm/CustomerService/Login";
+        public const string Signup = "/api/crm/CustomerService/Signup";
         public const string GetPolls = Prefix  + "/GetPolls";
         public const string GetPollById = Prefix  + "/GetPollById";
         public const string GetPollQuestionsByPollId = Prefix  + "/GetPollQuestionsByPollId";
