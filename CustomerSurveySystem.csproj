@@ -188,6 +188,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Enums\QuestionType.cs" />
+    <Compile Include="Models\AuthenticationResponse.cs" />
     <Compile Include="Models\Data.cs" />
     <Compile Include="Models\FinalizedQuestionDto.cs" />
     <Compile Include="Models\MultiChoiceData.cs" />

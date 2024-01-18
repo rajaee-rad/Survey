@@ -104,13 +104,14 @@ namespace CustomerSurveySystem.Services.Class
                     nationalCode = nationalCode,
                     password = password
                 };
-                var result = await ApiCaller.Call(QuestionnaireApiUrl.Login, param);
-                if (result.IsSuccessful != true && result.Content == null)
+                var response = await ApiCaller.Call(QuestionnaireApiUrl.Login, param);
+                if (!response.IsSuccessful  && response.Content == null)
                 {
                     return false;
                 }
 
-                return true;
+                var result = JsonConvert.DeserializeObject<AuthenticationResponse>(response.Content).Data;
+                return result;
             }
             catch (Exception e)
             {

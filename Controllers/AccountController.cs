@@ -28,11 +28,8 @@ namespace CustomerSurveySystem.Controllers
                FormsAuthentication.SetAuthCookie(nationalCode, false);
                 return RedirectToAction("Index", "Questionnaire", Guid.Empty);
             }
-            else
-            {
-                //return View();
-                return null;
-            }
+
+            return RedirectToAction("Index", "Account");
         }
         [HttpPost]
         public async Task<string> Signup(string nationalCode)
