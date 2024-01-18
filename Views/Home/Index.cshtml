@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "بیمه پاسارگاد";
+﻿@model List<CustomerSurveySystem.Models.Questionnaire>
+@{
+    ViewBag.Title = "  شرکت بیمه پاسارگاد";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -8,9 +9,14 @@
         <h2>لیست نظرسنجی ها</h2>
         @foreach (var item in Model)
         {
-           @Html.ActionLink((string)item.Title, "Index", "Questionnaire", 
-               new {questionnaireId = item.Id, needLogin = @item.NeedLogin}, null)
-           <br/>
+            using (@Html.BeginForm("Index", "Questionnaire", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="questionnaireId" value="@item.Id"/>
+                <input type="hidden" name="needLogin" value="@item.NeedLogin.ToString()"/>
+                
+                <button  class="btn btn-link"  type="submit">@item.Title</button>
+            }
         }
     </div>
 </div>

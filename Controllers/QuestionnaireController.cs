@@ -20,6 +20,7 @@ namespace CustomerSurveySystem.Controllers
         {
             _service = service;
         }
+        [HttpPost]
         public async Task<ActionResult> Index(Guid questionnaireId, bool needLogin)
         {
             if (needLogin && !User.Identity.IsAuthenticated)
