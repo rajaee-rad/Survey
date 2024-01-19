@@ -57,8 +57,7 @@ namespace CustomerSurveySystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> NextLevel(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
-            IEnumerable<Data> answerList)
+        public async Task<ActionResult> NextLevel(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId, string radio)
         {
             return null;
         }

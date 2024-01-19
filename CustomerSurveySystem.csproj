@@ -267,6 +267,8 @@
     <Content Include="Content\fonts\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\icheck-bootstrap.min.css" />
     <Content Include="Content\rtl.css" />
+    <Content Include="Content\star-rating.min.css" />
+    <Content Include="Content\theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -275,6 +277,8 @@
     <Content Include="Scripts\adminlte.min.js" />
     <Content Include="Scripts\adminlte.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\star-rating.min.js" />
+    <Content Include="Scripts\theme.js" />
     <Content Include="Scripts\wizard.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Views\Account\Index.cshtml" />

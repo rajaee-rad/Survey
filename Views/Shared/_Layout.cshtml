@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/adminlte.min.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/rtl.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/all.min.css")"/>
+    <!-- default styles -->
+    <link href="@Url.Content("~/Content/star-rating.min.css")" media="all" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Content/theme.css")" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -34,7 +37,7 @@
                 <i class="far fa-user"></i>
                 <span class="badge badge-danger navbar-badge">3</span>
             </a>
-           
+
         </ul>
 
     </nav>
@@ -88,7 +91,9 @@
 <!-- AdminLTE App -->
 <script src="@Url.Content("~/Scripts/adminlte.min.js")"></script>
 <script src="@Url.Content("~/Scripts/wizard.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/star-rating.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/theme.js")"></script>
 <!-- AdminLTE for demo purposes -->
-@RenderSection("scripts", required:false)
+@RenderSection("scripts", required: false)
 </body>
 </html>
