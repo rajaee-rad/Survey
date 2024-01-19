@@ -52,5 +52,12 @@ namespace CustomerSurveySystem.Controllers
 
             return View(result);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> NexLevel(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
+            IEnumerable<Data> answerList)
+        {
+            return null;
+        }
     }
 }
