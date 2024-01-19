@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using CustomerSurveySystem.Enums;
+using CustomerSurveySystem.Models;
 
 namespace CustomerSurveySystem.Services.Interface
 {
@@ -15,6 +17,7 @@ namespace CustomerSurveySystem.Services.Interface
         public bool NeedDescription { get; set; }
         public bool IsRequire { get; set; }
         public object QuestionDetail { get; set; }
+        public MultiChoiceData Questions { get; set; }
         public bool Finished { get; set; }
         
     }

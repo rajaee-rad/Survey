@@ -13,7 +13,7 @@ namespace CustomerSurveySystem.Models
         public bool IsMultiSelect { get; set; }
     }
 
-    public class JsonData
+    public class MultiChoiceJsonData
     {
         public MultiChoiceData Data { get; set; }
     }

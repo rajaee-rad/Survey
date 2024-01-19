@@ -204,12 +204,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AnswerSheets.cs" />
     <Compile Include="Models\Domains.cs" />
-    <Compile Include="Models\Answers.cs" />
     <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Models\Questions.cs" />
-    <Compile Include="Models\Rules.cs" />
     <Compile Include="Models\Steps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Class\AnswerData.cs" />

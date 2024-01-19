@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IList<CustomerSurveySystem.Services.Interface.QuestionDto>
+@{
     ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -17,7 +18,7 @@
         <div class="container py-3 my-3 border rounded shadow-sm">
             <div class="row">
                 <section class="col-12">
-                    <ul class="nav nav-tabs flex-nowrap" role="tablist">
+                    <ul class="nav nav-tabs flex-nowrap" role="tablist" style="display: none">
                         <li role="presentation" class="nav-item">
                             <a href="#step1" class="nav-link active" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1"> 1 </a>
                         </li>
