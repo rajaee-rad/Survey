@@ -17,7 +17,7 @@
         <div class="container py-3 my-3 border rounded shadow-sm">
             <div class="row">
                 <section class="col-12">
-                    @using (Html.BeginForm("NextLevel", "Questionnaire", FormMethod.Post))
+                    @using (Html.BeginForm("NextLevel", "Questionnaire", FormMethod.Post, new { onsubmit = "return handleOnSubmit();" }))
                     {
                         var i = 1;
                         foreach (var item in Model)
@@ -55,13 +55,13 @@
                                                         </div>
                                                     }
 
-                                                    i++;
+                                                    j++;
                                                 }
                                             </div>
                                         </div>
                                         i++;
                                     }
-                                    <button type="button" class="btn btn-primary next-step float-right">بعدی</button>
+                                    <input type="submit" class="btn btn-primary next-step float-right" value="بعدی">
                                 </div>
                                 @* <div class="tab-pane" role="tabpanel" id="complete"> *@
                                 @*     <h3>Complete!</h3> *@
@@ -81,3 +81,13 @@
 <div class="card-footer">
 
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+    function handleOnSubmit()
+    {
+        alert("asfsaf");
+    }
+    </script>
+}
