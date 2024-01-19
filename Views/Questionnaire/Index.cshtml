@@ -44,14 +44,14 @@
                                                     if (item.SingleSelect)
                                                     {
                                                         <div class="custom-control custom-radio">
-                                                            <input class="custom-control-input" type="radio" id="customRadio_@j" name="radio">
+                                                            <input class="custom-control-input" value="@question" type="radio" id="customRadio_@j" name="radio">
                                                             <label for="customRadio_@j" class="custom-control-label">@question</label>
                                                         </div>
                                                     }
                                                     else
                                                     {
                                                         <div class="custom-control custom-checkbox">
-                                                            <input class="custom-control-input" type="checkbox" id="customCheckbox_@j" value="option1">
+                                                            <input class="custom-control-input" name="checkbox"  type="checkbox" id="customCheckbox_@j" value="@question">
                                                             <label for="customCheckbox_@j" class="custom-control-label">@question</label>
                                                         </div>
                                                     }
