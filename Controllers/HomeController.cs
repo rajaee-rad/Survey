@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using CustomerSurveySystem.Services.Interface;
 
@@ -18,7 +19,7 @@ namespace CustomerSurveySystem.Controllers
         public async Task<ActionResult> Index()
         {
             var questionnairesOfWebsite = await _service.GetQuestionnairesOfWebsite();
-            return View(questionnairesOfWebsite);
+            return View(questionnairesOfWebsite.ToList());
         }
     }
 }
