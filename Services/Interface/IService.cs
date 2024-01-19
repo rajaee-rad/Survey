@@ -11,7 +11,7 @@ namespace CustomerSurveySystem.Services.Interface
         Task<IList<Questionnaire>> GetQuestionnairesOfWebsite();
 
         Task<IList<QuestionDto>> NextStep(NextStepRequestDto requestDto);
-        Task<string> Signup(string nationalCode);
+        Task<bool> Signup(string nationalCode);
         Task<bool> Login(string nationalCode, string password);
     }
 }

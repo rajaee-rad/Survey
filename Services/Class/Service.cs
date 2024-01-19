@@ -67,11 +67,12 @@ namespace CustomerSurveySystem.Services.Class
             catch (Exception e)
             {
                 Log.Logger.Fatal($"Error at NextStep! {e.Message}");
-            } 
+            }
+
             return null;
         }
 
-        public async Task<string>  Signup(string nationalCode)
+        public async Task<bool> Signup(string nationalCode)
         {
             try
             {
@@ -79,13 +80,12 @@ namespace CustomerSurveySystem.Services.Class
                 {
                     nationalCode = nationalCode
                 };
-                var result =  ApiCaller.Call(QuestionnaireApiUrl.Signup, param).Result;
+                var result = ApiCaller.Call(QuestionnaireApiUrl.Signup, param).Result;
                 if (result.IsSuccessful != true && result.Content == null)
                 {
-                    return  "Error";
+                    return false;
                 }
-
-                return "ok";
+                return true;
             }
             catch (Exception e)
             {
@@ -105,7 +105,7 @@ namespace CustomerSurveySystem.Services.Class
                     password = password
                 };
                 var response = await ApiCaller.Call(QuestionnaireApiUrl.Login, param);
-                if (!response.IsSuccessful  && response.Content == null)
+                if (!response.IsSuccessful && response.Content == null)
                 {
                     return false;
                 }

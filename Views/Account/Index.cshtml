@@ -3,72 +3,56 @@
     ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="login-page bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <h3 class="mb-3">ورود</h3>
-                <div class="bg-white shadow rounded">
-                    <div class="row">
-                        <div class="col-md-7 pe-0">
-                            <div class="form-left h-100 py-5 px-5">
-                                @using (@Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "row g-4" }))
-                                {
-                                    <div class="col-12">
-                                        <label>کدملی<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <div class="input-group-text">
-                                                <i class="bi bi-person-fill"></i>
-                                            </div>
-                                            <input name="nationalCode" type="text" class="form-control" placeholder="کد ملی خود را وارد کنید">
-                                        </div>
-                                    </div>
+<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">کد ملی</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
 
-                                    <div class="col-12">
-                                        <label>رمزعبور<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <div class="input-group-text">
-                                                <i class="bi bi-lock-fill"></i>
-                                            </div>
-                                            <input type="password" name="password" class="form-control" placeholder="رمزعبور خود را وارد کنید">
-                                        </div>
-                                    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">رمز عبور</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
 
-                                    <div class="col-sm-6">
-                                        <a href="#" class="float-end text-primary">رمز عبور خود را فراموش کرده‌اید؟</a>
-                                    </div>
+    <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">فراموشی رمز عبور</a>
 
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary px-4 float-end mt-4">ورود</button>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div class="col-md-5 ps-0 d-none d-md-block">
-                            <div class="form-right h-100 bg-primary text-white text-center pt-5">
-                                <i class="bi bi-bootstrap"></i>
-                                <h2 class="fs-1">خوش آمدید</h2>
-                            </div>
-                        </div>
+    <button type="submit" class="btn btn-primary">ورود</button>
+</form> <!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">فراموشی رمز عبور</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nationalCode">کد ملی</label>
+                        <input type="text" class="form-control" id="nationalCode">
                     </div>
                 </div>
-            </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="submit" class="btn btn-primary">ارسال</button>
+                </div>
+
+            </form>
+
         </div>
     </div>
 </div>
-
-<style>
-    a {
-        text-decoration: none;
-    }
-    .login-page {
-        width: 100%;
-        height: 100vh;
-        display: inline-block;
-        display: flex;
-        align-items: center;
-    }
-    .form-right i {
-        font-size: 100px;
-    }
-</style>
+<div class="loading d-none">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="message text-center d-none"> کد بازیابی رمز عبور برای شما پیامک شد. </div>

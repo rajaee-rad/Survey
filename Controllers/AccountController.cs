@@ -40,10 +40,10 @@ namespace CustomerSurveySystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Logout()
+        public Task<ActionResult> Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return Task.FromResult<ActionResult>(RedirectToAction("Index", "Home"));
 
         }
     }
