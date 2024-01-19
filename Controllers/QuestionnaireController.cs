@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using CustomerSurveySystem.Enums;
@@ -50,11 +52,14 @@ namespace CustomerSurveySystem.Controllers
                 };
             }
 
+            ViewData["QuestionnaireId"] = questionnaireId;
+           // var questionnaireTitle = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Cookies[$"Questionnaire_{questionnaireId}"]?.Value));
+            //ViewData["QuestionnaireTitle"] = questionnaireTitle;
             return View(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult> NexLevel(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
+        public async Task<ActionResult> NextLevel(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
             IEnumerable<Data> answerList)
         {
             return null;
