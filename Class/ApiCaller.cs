@@ -6,11 +6,11 @@ namespace CustomerSurveySystem.Class
 {
     public static class ApiCaller
     {
-        private static readonly string BigBangHost = ConfigurationManager.AppSettings["QuestionnaireHost"];
+        private static readonly string Host = ConfigurationManager.AppSettings["QuestionnaireHost"];
 
         public static async Task<RestResponse> Call(string url, object parameter = null)
         {
-            var client = new RestClient(BigBangHost);
+            var client = new RestClient(Host);
             var request = new RestRequest(url, Method.Post);
             if (parameter != null)
             {
