@@ -92,7 +92,7 @@ namespace CustomerSurveySystem.Services.Class
                 Log.Logger.Fatal($"Error at Signup! {e.Message}");
             }
 
-            return "";
+            return true;
         }
 
         public async Task<bool> Login(string nationalCode, string password)

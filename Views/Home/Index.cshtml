@@ -1,12 +1,19 @@
 ﻿@model List<CustomerSurveySystem.Models.Questionnaire>
 @{
-    ViewBag.Title = "  شرکت بیمه پاسارگاد";
+    ViewBag.Title = "شرکت بیمه پاسارگاد";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="card-header">
+    <h3 class="card-title">لیست نظرسنجی ها</h3>
 
-<div class="row">
+    <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="بستن">
+            <i class="fas fa-minus"></i>
+        </button>
+    </div>
+</div>
+<div class="card-body">
     <div>
-        <h2>لیست نظرسنجی ها</h2>
         @foreach (var item in Model)
         {
             using (@Html.BeginForm("Index", "Questionnaire", FormMethod.Post))
@@ -14,9 +21,14 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="questionnaireId" value="@item.Id"/>
                 <input type="hidden" name="needLogin" value="@item.NeedLogin.ToString()"/>
-                
-                <button  class="btn btn-link"  type="submit">@item.Title</button>
+
+                <button class="btn btn-link" type="submit">@item.Title</button>
             }
         }
     </div>
 </div>
+<!-- /.card-body -->
+<div class="card-footer">
+    
+</div>
+<!-- /.card-footer-->
