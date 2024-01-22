@@ -18,7 +18,6 @@ namespace CustomerSurveySystem.Services.Interface
         public bool IsRequire { get; set; }
         public object QuestionDetail { get; set; }
         public SurveyQuestionData Questions { get; set; }
-        public bool Finished { get; set; }
         
     }
 }

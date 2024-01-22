@@ -60,7 +60,7 @@ namespace CustomerSurveySystem.Controllers
             ViewData["AnswerSheetId"] = answerSheetId;
             var questionnaireTitle = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Cookies[$"Questionnaire_{questionnaireId}"]?.Value));
             ViewData["QuestionnaireTitle"] = questionnaireTitle;
-            return View(result);
+            return View(result.OrderBy(x=>x.OrderNumber).ToList());
         }
 
         [HttpPost]

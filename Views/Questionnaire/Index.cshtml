@@ -36,7 +36,7 @@
                                 <div class="tab-pane active" role="tabpanel" id="step1">
                                     @if (item.QuestionType == QuestionType.MultiChoice && item.Questions != null)
                                     {
-                                        <h5>@item.Title</h5>
+                                        <h5>@item.OrderNumber-@item.Title</h5>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 @{ int j = 1; }
@@ -63,6 +63,14 @@
 
                                                     j++;
                                                 }
+                                                @if (item.NeedDescription)
+                                                {
+                                                    <div class="form-group">
+                                                        <div class="col-sm-10">
+                                                            <textarea class="form-control" required="required" rows="3" placeholder="لطفا پاسخ خود را شرح دهید"></textarea>
+                                                        </div>
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                         i++;
@@ -70,10 +78,10 @@
                                     }
                                     @if (item.QuestionType == QuestionType.Text)
                                     {
-                                        <h5>@item.Title</h5>
+                                        <h5>@item.OrderNumber-@item.Title</h5>
                                         <div class="form-group">
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control"  name="texts[]" cols="30" rows="4" @(item.IsRequire ? "required" : "")></textarea>
+                                            <div class="col-sm-5">
+                                                <textarea class="form-control"  name="texts[]"  rows="3" @(item.IsRequire ? "required" : "")></textarea>
                                             </div>
                                         </div>
                                         <hr/>
@@ -82,13 +90,13 @@
 
                                         @if (item.QuestionType == QuestionType.Score)
                                         {
-                                            <h5>@item.Title</h5>
+                                            <h5>@item.OrderNumber-@item.Title</h5>
                                             <input id="input-id" required="" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
                                             <hr/>
                                         }
                                         @if (item.QuestionType == QuestionType.Number)
                                         {
-                                            <h5>@item.Title</h5>
+                                            <h5>@item.OrderNumber-@item.Title</h5>
                                             <input @(item.IsRequire ? "required" : "") class="form-group" name="numbers[]" type="number"/>
                                             <hr/>
                                         }
