@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace CustomerSurveySystem.Models
 {
-    public class MultiChoiceData
+    public class SurveyQuestionData
     {
         [JsonProperty("$NetType")]
         public string NetType { get; set; }
@@ -13,9 +13,9 @@ namespace CustomerSurveySystem.Models
         public bool IsMultiSelect { get; set; }
     }
 
-    public class MultiChoiceJsonData
+    public class SurveyQuestion
     {
-        public MultiChoiceData Data { get; set; }
+        public SurveyQuestionData Data { get; set; }
     }
     
 }

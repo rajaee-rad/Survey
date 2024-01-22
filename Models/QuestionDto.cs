@@ -17,7 +17,7 @@ namespace CustomerSurveySystem.Services.Interface
         public bool NeedDescription { get; set; }
         public bool IsRequire { get; set; }
         public object QuestionDetail { get; set; }
-        public MultiChoiceData Questions { get; set; }
+        public SurveyQuestionData Questions { get; set; }
         public bool Finished { get; set; }
         
     }

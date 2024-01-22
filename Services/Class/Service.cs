@@ -53,8 +53,16 @@ namespace CustomerSurveySystem.Services.Class
                     answerSheetId = requestDto.AnswerSheetId,
                     currentStepId = requestDto.CurrentStepId,
                     questionnaireId = requestDto.QuestionnaireId,
-                    answerList = requestDto.AnswerList
+                    answerList = new List<KeyValuePair<Guid, string>>(),
                 };
+                if (requestDto.AnswerList != null && requestDto.AnswerList.Any())
+                {
+                    foreach (var item in requestDto.AnswerList)
+                    {
+                        param.answerList.Add(new KeyValuePair<Guid, string>(item.QuestionId, item.Answer));
+                    }
+                }
+
                 var response = await ApiCaller.Call(QuestionnaireApiUrl.NextStep, param);
                 if (!response.IsSuccessful || response.Content == null)
                 {
@@ -70,6 +78,57 @@ namespace CustomerSurveySystem.Services.Class
             }
 
             return null;
+        }
+
+        public async Task<CustomerDto> RequestCustomer(string nationalCode)
+        {
+            try
+            {
+                var param = new
+                {
+                    nationalCode = nationalCode,
+                };
+                var response = await ApiCaller.Call(QuestionnaireApiUrl.RequestCustomer, param);
+                if (!response.IsSuccessful || response.Content == null)
+                {
+                    return null;
+                }
+
+                var result = JsonConvert.DeserializeObject<Response<CustomerDto>>(response.Content)?.Data;
+                return result.First();
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Fatal($"Error at RequestCustomer! {e.Message}");
+            }
+
+            return null;
+        }
+
+        public async Task<Guid> GetAnswerSheetIdByQuestionnaireId(Guid questionnaireId, string customerId)
+        {
+            try
+            {
+                var param = new
+                {
+                    questionnaireId = questionnaireId,
+                    customerId = customerId,
+                };
+                var response = await ApiCaller.Call(QuestionnaireApiUrl.GetAnswerSheetIdByQuestionnaireId, param);
+                if (!response.IsSuccessful || response.Content == null)
+                {
+                    return Guid.Empty;
+                }
+
+                var result = JsonConvert.DeserializeObject<Response<Guid>>(response.Content)?.Data;
+                return result.First();
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Fatal($"Error at GetAnswerSheetIdByQuestionnaireId! {e.Message}");
+            }
+
+            return Guid.Empty;
         }
 
         public async Task<bool> Signup(string nationalCode)

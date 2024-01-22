@@ -6,12 +6,15 @@ namespace CustomerSurveySystem.Class
     {
         private const string Prefix = "api/Questionnaire/AnsweringService";
 
+        public const string Login = "api/CRMKernel/CustomerService/Login";
+        public const string Signup = "api/CRMKernel/CustomerService/Signup";
+        public const string RequestCustomer = "api/CRMKernel/CustomerService/";
+
         public const string GetDomains = Prefix  + "/GetDomains";
         public const string QuestionnairesByDomainId = Prefix  + "/GetQuestionnairesByDomainId";
         public const string GetQuestionnaireForPerson = Prefix  + "/GetQuestionnaireForPerson";
-        public const string NextStep = Prefix  + "/NextStep";
-        public const string Login = "servicePath/CustomerService/Login";
-        public const string Signup = "servicePath/CustomerService/Signup";
+        public const string NextStep = Prefix  + "/NextStepWeb";
+        
         public const string GetPolls = Prefix  + "/GetPolls";
         public const string GetPollById = Prefix  + "/GetPollById";
         public const string GetPollQuestionsByPollId = Prefix  + "/GetPollQuestionsByPollId";

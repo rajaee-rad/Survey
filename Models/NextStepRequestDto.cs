@@ -8,6 +8,6 @@ namespace CustomerSurveySystem.Models
         public Guid AnswerSheetId { get; set; }
         public Guid? CurrentStepId { get; set; }
         public Guid QuestionnaireId { get; set; }
-        public IEnumerable<Data> AnswerList { get; set; }
+        public IEnumerable<SendAnswerDataDto> AnswerList { get; set; }
     }
 }
