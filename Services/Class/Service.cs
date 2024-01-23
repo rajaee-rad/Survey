@@ -44,20 +44,20 @@ namespace CustomerSurveySystem.Services.Class
             return null;
         }
 
-        public async Task<IList<QuestionDto>> NextStep(NextStepRequestDto requestDto)
+        public async Task<IList<QuestionDto>> NextStep(NextStepSendData sendData)
         {
             try
             {
                 var param = new
                 {
-                    answerSheetId = requestDto.AnswerSheetId,
-                    currentStepId = requestDto.CurrentStepId,
-                    questionnaireId = requestDto.QuestionnaireId,
+                    answerSheetId = sendData.AnswerSheetId,
+                    currentStepId = sendData.CurrentStepId,
+                    questionnaireId = sendData.QuestionnaireId,
                     answerList = new List<KeyValuePair<Guid, string>>(),
                 };
-                if (requestDto.AnswerList != null && requestDto.AnswerList.Any())
+                if (sendData.AnswerList != null && sendData.AnswerList.Any())
                 {
-                    foreach (var item in requestDto.AnswerList)
+                    foreach (var item in sendData.AnswerList)
                     {
                         param.answerList.Add(new KeyValuePair<Guid, string>(item.QuestionId, item.Answer));
                     }

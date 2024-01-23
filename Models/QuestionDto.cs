@@ -17,7 +17,8 @@ namespace CustomerSurveySystem.Services.Interface
         public bool NeedDescription { get; set; }
         public bool IsRequire { get; set; }
         public object QuestionDetail { get; set; }
-        public SurveyQuestionData Questions { get; set; }
+        public SurveyQuestionDetail Questions { get; set; } 
+        public IList<Answer> Answers { get; set; }
         
     }
 }

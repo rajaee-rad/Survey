@@ -5,18 +5,21 @@ using Newtonsoft.Json;
 
 namespace CustomerSurveySystem.Models
 {
-    public class SurveyQuestionData
+    public class SurveyQuestionDetail
     {
         [JsonProperty("$NetType")]
         public string NetType { get; set; }
         public int? MaxSelectable { get; set; }
-        public List<string> Options { get; set; }
+        public IList<string> Options { get; set; }
         public bool IsMultiSelect { get; set; }
     }
 
     public class SurveyQuestion
     {
-        public SurveyQuestionData Data { get; set; }
+        [JsonProperty("Data")]
+        public SurveyQuestionDetail QuestionDetail { get; set; }
+
+       
     }
     
 }
