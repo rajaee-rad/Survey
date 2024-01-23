@@ -12,6 +12,7 @@ namespace CustomerSurveySystem.Models
         public int? MaxSelectable { get; set; }
         public IList<string> Options { get; set; }
         public bool IsMultiSelect { get; set; }
+
     }
 
     public class SurveyQuestion
@@ -19,7 +20,6 @@ namespace CustomerSurveySystem.Models
         [JsonProperty("Data")]
         public SurveyQuestionDetail QuestionDetail { get; set; }
 
-       
     }
     
 }

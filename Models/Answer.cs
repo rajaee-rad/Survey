@@ -7,7 +7,7 @@ namespace CustomerSurveySystem.Models
     /// </summary>
     public class Answer
     {
-        public IList<string> Value { get; set; }
+        public string Value { get; set; }
         public string Description  { get; set; }
     }
 }
