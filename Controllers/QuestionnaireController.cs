@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using CustomerSurveySystem.Enums;
 using CustomerSurveySystem.Models;
@@ -26,7 +27,7 @@ namespace CustomerSurveySystem.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Index(Guid questionnaireId, bool needLogin)
         {
             if (needLogin && !User.Identity.IsAuthenticated)
@@ -58,46 +59,22 @@ namespace CustomerSurveySystem.Controllers
 
             ViewData["QuestionnaireId"] = questionnaireId;
             ViewData["AnswerSheetId"] = answerSheetId;
-            var questionnaireTitle = Encoding.UTF8.GetString(Convert.FromBase64String(Request.Cookies[$"Questionnaire_{questionnaireId}"]?.Value));
+            var questionnaireTitle =
+                Encoding.UTF8.GetString(
+                    Convert.FromBase64String(Request.Cookies[$"Questionnaire_{questionnaireId}"]?.Value));
             ViewData["QuestionnaireTitle"] = questionnaireTitle;
             return View(result);
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> NextStep(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
-            List<string> radio, List<string> checkbox, List<string> texts, List<string> numbers)
+             IList<AnswerOfQuestion> answerData)
         {
-            List<AnswerWithSerializedData> data = new List<AnswerWithSerializedData>();
-            string value = "\"Data\":{\"Value\":[";
-            //{"Data":{"Value":["نمیدانم","باید توضیح بدهم"],"Description":"تست","$NetType":"MultiChoice"}}
-            if (radio.Any())
-            {
-                var i = 0;
-                foreach (var item in radio)
-                {
-                    var sendAnswerDataDto = new AnswerWithSerializedData();
-                    sendAnswerDataDto.QuestionId = Guid.Parse(item.Split('_')[0]);
-                    value += item.Split('_')[1];
-                    data.Add(sendAnswerDataDto);
-                    if (radio.Count >= i)
-                    {
-                        value += "\"Description\":\"تست\",\"$NetType\":\"MultiChoice\"}}";
-                        sendAnswerDataDto.Answer = JsonConvert.SerializeObject(value);
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            }
-
-            var nextStepRequestDto = new NextStepSendData()
-            {
-                QuestionnaireId = questionnaireId.Value,
-                AnswerSheetId = answerSheetId.Value,
-                AnswerList = data
-            };
-            var result = await _service.NextStep(nextStepRequestDto);
+            // var 
+            // foreach (var item in answerData)
+            // {
+            //     return null;
+            // }
             return null;
         }
     }

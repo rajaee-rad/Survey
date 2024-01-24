@@ -1,5 +1,5 @@
 ﻿@using CustomerSurveySystem.Enums
-@model IList<CustomerSurveySystem.Services.Interface.QuestionDto>
+@model IList<CustomerSurveySystem.Models.QuestionDto>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -23,9 +23,9 @@
                         var i = 1;
                         foreach (var item in Model)
                         {
-                            <input type="hidden" name="currentStepId" value="@item.CurrentStepId"/>
-                            <input type="hidden" name="questionnaireId" value="@ViewData["QuestionnaireId"]"/>
-                            <input type="hidden" name="answerSheetId" value="@ViewData["AnswerSheetId"]"/>
+                            <input type="hidden" id="currentStepId" value="@item.CurrentStepId"/>
+                            <input type="hidden" id="questionnaireId" value="@ViewData["QuestionnaireId"]"/>
+                            <input type="hidden" id="answerSheetId" value="@ViewData["AnswerSheetId"]"/>
                             <ul class="nav nav-tabs flex-nowrap" role="tablist" style="display: none">
                                 <li role="presentation" class="nav-item">
                                     <a href="question_@i" class="nav-link active" data-toggle="tab" aria-controls="question_@i" role="tab" title="Step @i"> @i </a>
@@ -46,8 +46,12 @@
                                                     {
                                                         <div class="form-group">
                                                             <div class="custom-control custom-radio">
-                                                                <input @(item.IsRequire ? "required" : "") class="custom-control-input" value="@item.QuestionId.ToString()_@question" type="radio" id="customRadio_@j" name="radio">
-                                                                <label for="customRadio_@j" class="custom-control-label">@question</label>
+                                                                <input @(item.IsRequire ? "required" : "")
+                                                                    id="@($"answer_{j}_{item.QuestionId}")"
+                                                                    value="@question"
+                                                                    type="radio"
+                                                                    class="custom-control-input">
+                                                                <label for="@($"answer_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
                                                             </div>
                                                         </div>
                                                     }
@@ -55,8 +59,12 @@
                                                     {
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" @(item.IsRequire ? "required" : "") name="checkbox" type="checkbox" id="customCheckbox_@j" value="@item.QuestionId.ToString()">
-                                                                <label for="customCheckbox_@j" class="custom-control-label">@question</label>
+                                                                <input class="custom-control-input"
+                                                                       @(item.IsRequire ? "required" : "")
+                                                                       id="@($"answer_{j}_{item.QuestionId}")"
+                                                                       value="@question"
+                                                                       type="checkbox">
+                                                                <label for="@($"answer_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
                                                             </div>
                                                         </div>
                                                     }
@@ -111,7 +119,7 @@
                             i++;
                         }
 
-                        <input type="submit" class="btn btn-primary next-step float-right" value="بعدی"/>
+                        <button type="button" onclick="createAnswers();" class="btn btn-primary next-step float-right">بعدی</button>
                     }
                 </section>
             </div>
@@ -126,6 +134,42 @@
 @section scripts
 {
     <script type="text/javascript">
-    $("#input-id").rating();
+      $("#input-id").rating();
+     function createAnswers(){
+      
+      let data = [];
+      let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+      let radiobuttons = document.querySelectorAll('input[type=radio]:checked')
+      let questionnaireId = $('#questionnaireId').val();
+      let currentStepId = $('#currentStepId').val();
+      let answerSheetId = $('#answerSheetId').val();
+      for (let i = 0; i < checkboxes.length; i++) {
+          let questionId = checkboxes[i].id.split('_')[2];
+          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
+           if (existingKeyIndex !== -1){
+               data[existingKeyIndex].answer.push(checkboxes[i].value);
+           } else{
+                data.push({questionId: questionId, answer: [checkboxes[i].value]})
+        }
+      }
+      for (let i = 0; i < radiobuttons.length; i++) {
+          let questionId = radiobuttons[i].id.split('_')[2];
+          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
+          if (existingKeyIndex !== -1){ 
+              data[existingKeyIndex].answer.push(radiobuttons[i].value);
+            }else{
+          data.push({questionId: questionId, answer: [radiobuttons[i].value]})
+          }
+      }
+        $.ajax({
+            url:'/Questionnaire/NextStep',
+            type:'POST',
+            data:  JSON.stringify({questionnaireId: questionnaireId,currentStepId:currentStepId,answerSheetId:answerSheetId,answerData: data}),
+            contentType: "application/json",
+            success: function (result){
+                console.log(result);
+                }
+            })
+     }     
     </script>
 }
