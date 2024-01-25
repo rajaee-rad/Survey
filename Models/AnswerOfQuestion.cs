@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace CustomerSurveySystem.Models
@@ -8,7 +9,7 @@ namespace CustomerSurveySystem.Models
     /// </summary>
     public class AnswerOfQuestion
     {
-        public string QuestionId { get; set; }
+        public Guid QuestionId { get; set; }
         public List<string> Answer { get; set; }
         public string Description  { get; set; }
     }

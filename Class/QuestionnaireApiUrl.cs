@@ -13,7 +13,7 @@ namespace CustomerSurveySystem.Class
         public const string GetDomains = Prefix  + "/GetDomains";
         public const string QuestionnairesByDomainId = Prefix  + "/GetQuestionnairesByDomainId";
         public const string GetQuestionnaireForPerson = Prefix  + "/GetQuestionnaireForPerson";
-        public const string NextStep = Prefix  + "/NextStepWeb";
+        public const string NextStep = Prefix  + "/NextStep";
         
         public const string GetPolls = Prefix  + "/GetPolls";
         public const string GetPollById = Prefix  + "/GetPollById";

@@ -47,11 +47,12 @@
                                                         <div class="form-group">
                                                             <div class="custom-control custom-radio">
                                                                 <input @(item.IsRequire ? "required" : "")
-                                                                    id="@($"answer_{j}_{item.QuestionId}")"
+                                                                    id="@($"customRadio_{j}_{item.QuestionId}")"
                                                                     value="@question"
+                                                                    name="@($"customRadio_{item.QuestionId}")[]"
                                                                     type="radio"
                                                                     class="custom-control-input">
-                                                                <label for="@($"answer_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
+                                                                <label for="@($"customRadio_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
                                                             </div>
                                                         </div>
                                                     }
@@ -61,10 +62,11 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input class="custom-control-input"
                                                                        @(item.IsRequire ? "required" : "")
-                                                                       id="@($"answer_{j}_{item.QuestionId}")"
+                                                                       id="@($"customCheckbox_{j}_{item.QuestionId}")"
+                                                                       name="@($"customRadio_{item.QuestionId}")[]"
                                                                        value="@question"
                                                                        type="checkbox">
-                                                                <label for="@($"answer_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
+                                                                <label for="@($"customCheckbox_{j}_{item.QuestionId}")" class="custom-control-label">@question</label>
                                                             </div>
                                                         </div>
                                                     }
@@ -145,7 +147,7 @@
       let answerSheetId = $('#answerSheetId').val();
       for (let i = 0; i < checkboxes.length; i++) {
           let questionId = checkboxes[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
+          let existingKeyIndex = data.findIndex(o=> o.id === questionId);
            if (existingKeyIndex !== -1){
                data[existingKeyIndex].answer.push(checkboxes[i].value);
            } else{
@@ -154,7 +156,7 @@
       }
       for (let i = 0; i < radiobuttons.length; i++) {
           let questionId = radiobuttons[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
+          let existingKeyIndex = data.findIndex(o=> o.id === questionId);
           if (existingKeyIndex !== -1){ 
               data[existingKeyIndex].answer.push(radiobuttons[i].value);
             }else{

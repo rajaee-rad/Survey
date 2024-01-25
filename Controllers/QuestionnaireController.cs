@@ -70,11 +70,16 @@ namespace CustomerSurveySystem.Controllers
         public async Task<ActionResult> NextStep(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
              IList<AnswerOfQuestion> answerData)
         {
-            // var 
-            // foreach (var item in answerData)
-            // {
-            //     return null;
-            // }
+         
+            var dto = new NextStepSendData()
+            {
+                QuestionnaireId = questionnaireId ?? (Guid.Empty),
+                AnswerSheetId = answerSheetId ?? (Guid.Empty),
+                CurrentStepId = currentStepId ?? (Guid.Empty),
+                Answers =  answerData
+            };
+           var result = await  _service.NextStep(dto);
+            //return  RedirectToAction("NextStep", questionnaireId)
             return null;
         }
     }

@@ -55,11 +55,11 @@ namespace CustomerSurveySystem.Services.Class
                     questionnaireId = sendData.QuestionnaireId,
                     answerList = new List<KeyValuePair<Guid, string>>(),
                 };
-                if (sendData.AnswerList != null && sendData.AnswerList.Any())
+                if (sendData.Answers != null && sendData.Answers.Any())
                 {
-                    foreach (var item in sendData.AnswerList)
+                    foreach (var item in sendData.Answers)
                     {
-                        param.answerList.Add(new KeyValuePair<Guid, string>(item.QuestionId, item.Answer));
+                        param.answerList.Add(new KeyValuePair<Guid, string>(item.QuestionId, item.Answer.First()));
                     }
                 }
 

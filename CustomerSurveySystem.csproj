@@ -191,14 +191,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Enums\QuestionType.cs" />
-    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\AnswerOfQuestion.cs" />
     <Compile Include="Models\AuthenticationResponse.cs" />
     <Compile Include="Models\CustomerDto.cs" />
     <Compile Include="Models\SurveyQuestion.cs" />
     <Compile Include="Models\NextStepSendData.cs" />
     <Compile Include="Models\QuestionDto.cs" />
     <Compile Include="Models\QuestionnaireResponse.cs" />
-    <Compile Include="Models\SendAnswerDataDto.cs" />
     <Compile Include="Models\TokenResponse.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
