@@ -147,7 +147,7 @@
       let answerSheetId = $('#answerSheetId').val();
       for (let i = 0; i < checkboxes.length; i++) {
           let questionId = checkboxes[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.id === questionId);
+          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
            if (existingKeyIndex !== -1){
                data[existingKeyIndex].answer.push(checkboxes[i].value);
            } else{
@@ -156,7 +156,7 @@
       }
       for (let i = 0; i < radiobuttons.length; i++) {
           let questionId = radiobuttons[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.id === questionId);
+          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
           if (existingKeyIndex !== -1){ 
               data[existingKeyIndex].answer.push(radiobuttons[i].value);
             }else{
