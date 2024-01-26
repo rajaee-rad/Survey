@@ -136,61 +136,64 @@
 @section scripts
 {
     <script type="text/javascript">
-      $(".rating").rating();
-     function createAnswers(){
-      
-      let data = [];
-      let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
-      let radiobuttons = document.querySelectorAll('input[type=radio]:checked')
-      
-      let textboxes = $('input[type=text], textarea');
-      let scores =$("input[class*='rating']");
-      let numbers = document.querySelectorAll('input[type=number]')
-  
-      let questionnaireId = $('#questionnaireId').val();
-      let currentStepId = $('#currentStepId').val();
-      let answerSheetId = $('#answerSheetId').val();
-      for (let i = 0; i < checkboxes.length; i++) {
-          let questionId = checkboxes[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
-           if (existingKeyIndex !== -1){
-               data[existingKeyIndex].answer.push(checkboxes[i].value);
-           } else{
-                data.push({questionId: questionId, answer: [checkboxes[i].value]})
-        }
-      }
-      for (let i = 0; i < radiobuttons.length; i++) {
-          let questionId = radiobuttons[i].id.split('_')[2];
-          let existingKeyIndex = data.findIndex(o=> o.questionId === questionId);
-          if (existingKeyIndex !== -1){ 
-              data[existingKeyIndex].answer.push(radiobuttons[i].value);
-            }else{
-          data.push({questionId: questionId, answer: [radiobuttons[i].value]})
-          }
-      }
-
-           for (let i = 0; i < textboxes.length; i++) {
-               let questionId = textboxes[i].id.split('_')[1];
-               data.push({questionnaireId: questionId, answer:textboxes[i].value })
-               }
-           for (let i = 0; i < scores.length; i++) {
-                          let questionId = scores[i].id.split('_')[1];
-                          data.push({questionnaireId: questionId, answer:scores[i].value })
-                          }
-           for (let i = 0; i < numbers.length; i++) {
-                                     let questionId = numbers[i].id.split('_')[1];
-                                     data.push({questionnaireId: questionId, answer:numbers[i].value })
-                                     }
-        $.ajax({
-            url:'/Questionnaire/NextStep',
-            type:'POST',
-            data:  JSON.stringify({questionnaireId: questionnaireId,currentStepId:currentStepId,answerSheetId:answerSheetId,
-            answerData: data, model:$('#QuestionnaireForm').serialize()}),
-            contentType: "application/json",
-            success: function (result){
-                console.log(result);
-                }
-            })
-     }     
+     $(".rating").rating();
+     function createAnswers() {
+     
+         let data = [];
+         let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+         let radiobuttons = document.querySelectorAll('input[type=radio]:checked')
+     
+         let textboxes = $('input[type=text], textarea');
+         let scores = $("input[class*='rating']");
+         let numbers = document.querySelectorAll('input[type=number]')
+     
+         let questionnaireId = $('#questionnaireId').val();
+         let currentStepId = $('#currentStepId').val();
+         let answerSheetId = $('#answerSheetId').val();
+         for (let i = 0; i < checkboxes.length; i++) {
+             let questionId = checkboxes[i].id.split('_')[2];
+             let existingKeyIndex = data.findIndex(o => o.questionId === questionId);
+             if (existingKeyIndex !== -1) {
+                 data[existingKeyIndex].answer.push(checkboxes[i].value);
+             } else {
+                 data.push({ questionId: questionId, answer: [checkboxes[i].value] })
+             }
+         }
+         for (let i = 0; i < radiobuttons.length; i++) {
+             let questionId = radiobuttons[i].id.split('_')[2];
+             let existingKeyIndex = data.findIndex(o => o.questionId === questionId);
+             if (existingKeyIndex !== -1) {
+                 data[existingKeyIndex].answer.push(radiobuttons[i].value);
+             } else {
+                 data.push({ questionId: questionId, answer: [radiobuttons[i].value] })
+             }
+         }
+     
+         for (let i = 0; i < textboxes.length; i++) {
+             let questionId = textboxes[i].id.split('_')[1];
+             data.push({ questionId: questionId, answer: textboxes[i].value })
+         }
+         for (let i = 0; i < scores.length; i++) {
+             let questionId = scores[i].id.split('_')[1];
+             data.push({ questionId: questionId, answer: scores[i].value })
+         }
+         for (let i = 0; i < numbers.length; i++) {
+             let questionId = numbers[i].id.split('_')[1];
+             data.push({ questionId: questionId, answer: numbers[i].value })
+         }
+         $.ajax({
+             url: '/Questionnaire/NextStep',
+             type: 'POST',
+             data: JSON.stringify({
+                 questionnaireId: questionnaireId, currentStepId: currentStepId, answerSheetId: answerSheetId,
+                 answerData: data, model: $('#QuestionnaireForm').serialize()
+             }),
+             contentType: "application/json",
+             success: function (result) {
+                 console.log(result);
+             }
+         })
+     }
+     
     </script>
 }

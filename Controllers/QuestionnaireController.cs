@@ -83,44 +83,42 @@ namespace CustomerSurveySystem.Controllers
                 {
                     var dto = new Data
                     {
-                        QuestionId = item.QuestionId
+                        QuestionId = item.QuestionId,
+                        Answer = new AnswerData()
                     };
-                    foreach (var answer in answerData)
+                    var answer = answerData.First(x => x.QuestionId == item.QuestionId);
+                    switch (item.QuestionType)
                     {
-                       
-                        if (answer.QuestionId == item.QuestionId)
-                        {
-                            dto.Answer = new AnswerData();
-                            switch (item.QuestionType)
+                        case QuestionType.Number:
+                            dto.Answer.Data = new Score()
                             {
-                                case QuestionType.Number:
-                                    dto.Answer.Data = new Score()
-                                    {
-                                        Value = int.Parse(answer.Answer.First())
-                                    };
-
-                                    break;
-                                case QuestionType.Text:
-                                    dto.Answer.Data = new Text()
-                                    {
-                                        Value = answer.Answer.First()
-                                    };
-
-                                    break;
-                                case QuestionType.Score:
-                                    dto.Answer.Data = new Score()
-                                    {
-                                        Value = int.Parse(answer.Answer.First())
-                                    };
-                                    break;
-                                case QuestionType.MultiChoice:
-                                    dto.Answer.Data = new MultiChoice()
-                                    {
-                                        Value = answer.Answer
-                                    };
-                                    break;
-                            }
-                        }
+                                Value = int.Parse(answer.Answer.First())
+                            };
+                            break;
+                        case QuestionType.Text:
+                            dto.Answer.Data = new Text()
+                            {
+                                Value = answer.Answer.First()
+                            };
+                            break;
+                        case QuestionType.Score:
+                            dto.Answer.Data = new Score()
+                            {
+                                Value = int.Parse(answer.Answer.First())
+                            };
+                            break;
+                        case QuestionType.MultiChoice:
+                            dto.Answer.Data = new MultiChoice()
+                            {
+                                Value = answer.Answer
+                            };
+                            break;
+                        default:
+                            dto.Answer.Data = new MultiChoice()
+                            {
+                                Value = answer.Answer
+                            };
+                            break;
                     }
 
                     answersList.Add(dto);
@@ -133,7 +131,7 @@ namespace CustomerSurveySystem.Controllers
                     CurrentStepId = currentStepId ?? (Guid.Empty),
                     Answers = answersList
                 };
-               
+
                 var result = await _service.NextStep(sendAnswerDto);
                 return null;
             }
