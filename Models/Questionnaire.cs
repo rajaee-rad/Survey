@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+using CustomerSurveySystem.Enums;
 
 namespace CustomerSurveySystem.Models
 {
@@ -13,11 +15,14 @@ namespace CustomerSurveySystem.Models
         public DateTime? EndDate { get; set; }
 
         public string Description { get; set; }
-
+        
+        public QuestionnaireState State { get; set; }
         public bool NeedLogin { get; set; }
 
         public DateTime CreateDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }
     }
+
+    
 }

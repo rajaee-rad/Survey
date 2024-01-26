@@ -1,4 +1,5 @@
-﻿@model List<CustomerSurveySystem.Models.Questionnaire>
+﻿@using System.Activities.Statements
+@model List<CustomerSurveySystem.Models.Questionnaire>
 @{
     ViewBag.Title = "شرکت بیمه پاسارگاد";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -14,6 +15,10 @@
 </div>
 <div class="card-body">
     <div>
+        @if (!Model.Any())
+        {
+            <p>نظرسنجی فعالی وجود ندارد!</p>
+        }
         @foreach (var item in Model)
         {
             using (@Html.BeginForm("Index", "Questionnaire", FormMethod.Post))

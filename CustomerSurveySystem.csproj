@@ -190,6 +190,7 @@
     <Compile Include="Class\QuestionnaireAuthorize.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
+    <Compile Include="Enums\QuestionnaireState.cs" />
     <Compile Include="Enums\QuestionType.cs" />
     <Compile Include="Models\AnswerOfQuestion.cs" />
     <Compile Include="Models\AuthenticationResponse.cs" />
