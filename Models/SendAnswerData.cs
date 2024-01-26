@@ -28,6 +28,7 @@ namespace CustomerSurveySystem.Models
     public class MultiChoice : IAnswerData
     {
         public List<string> Value { get; set; }
+        public string Description { get; set; }
     }
 
     public class Text : IAnswerData

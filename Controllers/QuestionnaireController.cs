@@ -26,23 +26,50 @@ namespace CustomerSurveySystem.Controllers
         {
             _service = service;
         }
-
-        [System.Web.Mvc.HttpPost]
-        public async Task<ActionResult> Index(Guid questionnaireId, bool needLogin)
+        [System.Web.Mvc.HttpGet]
+        public async Task<ActionResult> Index(Guid questionnaireId, Guid answerSheetId, IList<QuestionDto> questions)
         {
-            if (needLogin && !User.Identity.IsAuthenticated)
+           
+            ViewData["AnswerSheetId"] = answerSheetId;
+            ViewData["QuestionnaireId"] = questionnaireId;
+            
+            foreach (var question in questions)
+            {
+                if (question.QuestionType != QuestionType.MultiChoice) continue;
+                var multiChoiceData =
+                    JsonConvert.DeserializeObject<SurveyQuestion>(question.QuestionDetail.ToString());
+                question.Questions = new SurveyQuestionDetail()
+                {
+                    Options = multiChoiceData.QuestionDetail.Options,
+                    MaxSelectable = multiChoiceData.QuestionDetail.MaxSelectable,
+                    IsMultiSelect = multiChoiceData.QuestionDetail.IsMultiSelect,
+                    NetType = multiChoiceData.QuestionDetail.NetType
+                };
+            }
+            return View(questions);
+        }
+        [System.Web.Mvc.HttpPost]
+        public async Task<ActionResult> Index(Guid questionnaireId, bool? needLogin)
+        {
+            if (needLogin.HasValue && needLogin.Value && !User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Account");
             }
 
             // var customer = await _service.RequestCustomer(User.Identity.GetUserId());
             //var answerSheetId = await _service.GetAnswerSheetIdByQuestionnaireId(questionnaireId, customer.Id.ToString());
-            var answerSheetId = "D9A7FE2F-51AD-4F84-9D65-B0FD000CBA3A";
+            ViewData["AnswerSheetId"] = Guid.Parse("D9A7FE2F-51AD-4F84-9D65-B0FD000CBA3A");
+            ViewData["QuestionnaireId"] = questionnaireId;
+
+            List<QuestionDto> result;
+
             var dto = new NextStepSendData()
             {
                 QuestionnaireId = questionnaireId
             };
-            var result = await _service.NextStep(dto);
+            result = await _service.NextStep(dto) as List<QuestionDto>;
+
+
             foreach (var question in result)
             {
                 if (question.QuestionType != QuestionType.MultiChoice) continue;
@@ -57,12 +84,7 @@ namespace CustomerSurveySystem.Controllers
                 };
             }
 
-            ViewData["QuestionnaireId"] = questionnaireId;
-            ViewData["AnswerSheetId"] = answerSheetId;
-            var questionnaireTitle =
-                Encoding.UTF8.GetString(
-                    Convert.FromBase64String(Request.Cookies[$"Questionnaire_{questionnaireId}"]?.Value));
-            ViewData["QuestionnaireTitle"] = questionnaireTitle;
+
             return View(result);
         }
 
@@ -72,51 +94,47 @@ namespace CustomerSurveySystem.Controllers
         {
             try
             {
-                var getQuestionsDto = new NextStepSendData()
-                {
-                    QuestionnaireId = questionnaireId.Value,
-                    //CurrentStepId = currentStepId.Value,
-                };
-                var questions = await _service.NextStep(getQuestionsDto);
                 var answersList = new List<Data>();
-                foreach (var item in questions)
+                var answers = answerData.Where(x => x.QuestionId != Guid.Empty).ToList();
+                foreach (var item in answers)
                 {
                     var dto = new Data
                     {
                         QuestionId = item.QuestionId,
                         Answer = new AnswerData()
                     };
-                    var answer = answerData.First(x => x.QuestionId == item.QuestionId);
                     switch (item.QuestionType)
                     {
                         case QuestionType.Number:
                             dto.Answer.Data = new Score()
                             {
-                                Value = int.Parse(answer.Answer.First())
+                                Value = int.Parse(item.Answer.First())
                             };
                             break;
                         case QuestionType.Text:
                             dto.Answer.Data = new Text()
                             {
-                                Value = answer.Answer.First()
+                                Value = item.Answer.First()
                             };
                             break;
                         case QuestionType.Score:
                             dto.Answer.Data = new Score()
                             {
-                                Value = int.Parse(answer.Answer.First())
+                                Value = int.Parse(item.Answer.First())
                             };
                             break;
                         case QuestionType.MultiChoice:
                             dto.Answer.Data = new MultiChoice()
                             {
-                                Value = answer.Answer
+                                Value = item.Answer,
+                                Description = item.Description
                             };
+                            
                             break;
                         default:
                             dto.Answer.Data = new MultiChoice()
                             {
-                                Value = answer.Answer
+                                Value = item.Answer
                             };
                             break;
                     }
@@ -133,7 +151,10 @@ namespace CustomerSurveySystem.Controllers
                 };
 
                 var result = await _service.NextStep(sendAnswerDto);
-                return null;
+                if (result != null && result.Any())
+                {
+                    //return RedirectToAction("Index", "Questionnaire", new{ questionnaireId.Value, result, answerSheetId.Value});
+                }
             }
             catch (Exception ex)
             {

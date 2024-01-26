@@ -78,7 +78,7 @@
                                                 {
                                                     <div class="form-group">
                                                         <div class="col-sm-10">
-                                                            <textarea class="form-control" required="required" rows="3" placeholder="لطفا پاسخ خود را شرح دهید"></textarea>
+                                                            <textarea  id="@($"description_{item.QuestionId}")" aria-placeholder="لطفا پاسخ خود را بیشتر شرح دهید"  class="form-control" required="required" rows="3" placeholder="لطفا پاسخ خود را شرح دهید"></textarea>
                                                         </div>
                                                     </div>
                                                 }
@@ -153,11 +153,13 @@
          let answerSheetId = $('#answerSheetId').val();
          for (let i = 0; i < checkboxes.length; i++) {
              let questionId = checkboxes[i].id.split('_')[2];
+             let description = document.getElementById("description_d1dd4b99-9dd5-42c6-a62a-b0f90096f0ad");
+             let descriptionValue = description != null ? description.value :null;
              let existingKeyIndex = data.findIndex(o => o.questionId === questionId);
              if (existingKeyIndex !== -1) {
                  data[existingKeyIndex].answer.push(checkboxes[i].value);
              } else {
-                 data.push({ questionId: questionId, answer: [checkboxes[i].value] })
+                 data.push({ questionId: questionId, questionType: 1, description:descriptionValue , answer: [checkboxes[i].value] })
              }
          }
          for (let i = 0; i < radiobuttons.length; i++) {
@@ -166,21 +168,21 @@
              if (existingKeyIndex !== -1) {
                  data[existingKeyIndex].answer.push(radiobuttons[i].value);
              } else {
-                 data.push({ questionId: questionId, answer: [radiobuttons[i].value] })
+                 data.push({ questionId: questionId,questionType: 1, answer: [radiobuttons[i].value] })
              }
          }
      
          for (let i = 0; i < textboxes.length; i++) {
              let questionId = textboxes[i].id.split('_')[1];
-             data.push({ questionId: questionId, answer: textboxes[i].value })
+             data.push({ questionId: questionId,questionType: 3, answer: textboxes[i].value })
          }
          for (let i = 0; i < scores.length; i++) {
              let questionId = scores[i].id.split('_')[1];
-             data.push({ questionId: questionId, answer: scores[i].value })
+             data.push({ questionId: questionId,questionType: 2, answer: scores[i].value })
          }
          for (let i = 0; i < numbers.length; i++) {
              let questionId = numbers[i].id.split('_')[1];
-             data.push({ questionId: questionId, answer: numbers[i].value })
+             data.push({ questionId: questionId,questionType: 4, answer: numbers[i].value })
          }
          $.ajax({
              url: '/Questionnaire/NextStep',
