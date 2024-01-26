@@ -191,11 +191,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="Enums\QuestionType.cs" />
-    <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerOfQuestion.cs" />
     <Compile Include="Models\AuthenticationResponse.cs" />
     <Compile Include="Models\CustomerDto.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
+    <Compile Include="Models\SendAnswerData.cs" />
     <Compile Include="Models\SurveyQuestion.cs" />
     <Compile Include="Models\NextStepSendData.cs" />
     <Compile Include="Models\QuestionDto.cs" />
@@ -208,6 +208,7 @@
     <Compile Include="Models\Domains.cs" />
     <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Class\NetTypeConverter.cs" />
     <Compile Include="Services\Class\Service.cs" />
     <Compile Include="Services\Interface\IService.cs" />
   </ItemGroup>

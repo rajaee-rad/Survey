@@ -91,7 +91,7 @@
                                         <h5>@item.OrderNumber-@item.Title</h5>
                                         <div class="form-group">
                                             <div class="col-sm-5">
-                                                <textarea class="form-control"  name="texts[]"  rows="3" @(item.IsRequire ? "required" : "")></textarea>
+                                                <textarea class="form-control"   id="@($"textbox_{item.QuestionId}")"  rows="3" @(item.IsRequire ? "required" : "")></textarea>
                                             </div>
                                         </div>
                                         <hr/>
@@ -101,13 +101,13 @@
                                         @if (item.QuestionType == QuestionType.Score)
                                         {
                                             <h5>@item.OrderNumber-@item.Title</h5>
-                                            <input id="input-id" required="" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                                            <input id="@($"score_{item.QuestionId}")" @(item.IsRequire ? "required" : "")  class="rating rating-loading" data-min="0" data-max="5" data-step="1">
                                             <hr/>
                                         }
                                         @if (item.QuestionType == QuestionType.Number)
                                         {
                                             <h5>@item.OrderNumber-@item.Title</h5>
-                                            <input @(item.IsRequire ? "required" : "") class="form-group" name="numbers[]" type="number"/>
+                                            <input id="@($"number_{item.QuestionId}")" @(item.IsRequire ? "required" : "") class="form-group" type="number"/>
                                             <hr/>
                                         }
                                     </div>
@@ -136,12 +136,17 @@
 @section scripts
 {
     <script type="text/javascript">
-      $("#input-id").rating();
+      $(".rating").rating();
      function createAnswers(){
       
       let data = [];
       let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
       let radiobuttons = document.querySelectorAll('input[type=radio]:checked')
+      
+      let textboxes = $('input[type=text], textarea');
+      let scores =$("input[class*='rating']");
+      let numbers = document.querySelectorAll('input[type=number]')
+  
       let questionnaireId = $('#questionnaireId').val();
       let currentStepId = $('#currentStepId').val();
       let answerSheetId = $('#answerSheetId').val();
@@ -163,6 +168,19 @@
           data.push({questionId: questionId, answer: [radiobuttons[i].value]})
           }
       }
+
+           for (let i = 0; i < textboxes.length; i++) {
+               let questionId = textboxes[i].id.split('_')[1];
+               data.push({questionnaireId: questionId, answer:textboxes[i].value })
+               }
+           for (let i = 0; i < scores.length; i++) {
+                          let questionId = scores[i].id.split('_')[1];
+                          data.push({questionnaireId: questionId, answer:scores[i].value })
+                          }
+           for (let i = 0; i < numbers.length; i++) {
+                                     let questionId = numbers[i].id.split('_')[1];
+                                     data.push({questionnaireId: questionId, answer:numbers[i].value })
+                                     }
         $.ajax({
             url:'/Questionnaire/NextStep',
             type:'POST',

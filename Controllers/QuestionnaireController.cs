@@ -68,24 +68,78 @@ namespace CustomerSurveySystem.Controllers
 
         [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> NextStep(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
-             IList<AnswerOfQuestion> answerData, IList<QuestionDto> model)
+            IList<AnswerOfQuestion> answerData)
         {
-         
-          
-          
-            // var dto = new NextStepSendData()
-            // {
-            //     QuestionnaireId = questionnaireId ?? (Guid.Empty),
-            //     AnswerSheetId = answerSheetId ?? (Guid.Empty),
-            //     CurrentStepId = currentStepId ?? (Guid.Empty),
-            // };
-           
-            //{Data: {$NetType: "MultiChoice", Value: ["خیلی زیاد", "زیاد", "متوسط", "کم"]}}
-            //{Data: {$NetType: "Text", Value: "sdsadsad"}}
-            //Data: {$NetType: "MultiChoice", Value: ["بسیار آسان"]}
-            //Data: {$NetType: "Score", Value: 5}
-          // var result = await  _service.NextStep(dto);
-            //return  RedirectToAction("NextStep", questionnaireId)
+            try
+            {
+                var getQuestionsDto = new NextStepSendData()
+                {
+                    QuestionnaireId = questionnaireId.Value,
+                    //CurrentStepId = currentStepId.Value,
+                };
+                var questions = await _service.NextStep(getQuestionsDto);
+                var answersList = new List<Data>();
+                foreach (var item in questions)
+                {
+                    var dto = new Data();
+                    dto.QuestionId = item.QuestionId;
+                    foreach (var answer in answerData)
+                    {
+                        if (answer.QuestionId == item.QuestionId)
+                        {
+                            dto.Answer = new AnswerData();
+                            switch (item.QuestionType)
+                            {
+                                case QuestionType.Number:
+                                    dto.Answer.Data = new Score()
+                                    {
+                                        Value = int.Parse(answer.Answer.First())
+                                    };
+
+                                    break;
+                                case QuestionType.Text:
+                                    dto.Answer.Data = new Text()
+                                    {
+                                        Value = answer.Answer.First()
+                                    };
+
+                                    break;
+                                case QuestionType.Score:
+                                    dto.Answer.Data = new Score()
+                                    {
+                                        Value = int.Parse(answer.Answer.First())
+                                    };
+                                    break;
+                                case QuestionType.MultiChoice:
+                                    dto.Answer.Data = new MultiChoice()
+                                    {
+                                        Value = answer.Answer
+                                    };
+                                    break;
+                            }
+                        }
+                    }
+
+                    answersList.Add(dto);
+                }
+
+                var sendAnswerDto = new NextStepSendData()
+                {
+                    QuestionnaireId = (Guid)questionnaireId,
+                    AnswerSheetId = answerSheetId ?? (Guid.Empty),
+                    CurrentStepId = currentStepId ?? (Guid.Empty),
+                    Answers = answersList
+                };
+
+                var result = await _service.NextStep(sendAnswerDto);
+                //return  RedirectToAction("NextStep", questionnaireId)
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
             return null;
         }
     }
