@@ -8,6 +8,6 @@ namespace CustomerSurveySystem.Models
         public Guid AnswerSheetId { get; set; }
         public Guid? CurrentStepId { get; set; }
         public Guid QuestionnaireId { get; set; }
-        public IList<AnswerOfQuestion> Answers { get; set; }
+        public string Answers { get; set; }
     }
 }

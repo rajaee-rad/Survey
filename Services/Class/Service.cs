@@ -53,15 +53,9 @@ namespace CustomerSurveySystem.Services.Class
                     answerSheetId = sendData.AnswerSheetId,
                     currentStepId = sendData.CurrentStepId,
                     questionnaireId = sendData.QuestionnaireId,
-                    answerList = new List<KeyValuePair<Guid, string>>(),
+                    answerList =  sendData.Answers
                 };
-                if (sendData.Answers != null && sendData.Answers.Any())
-                {
-                    foreach (var item in sendData.Answers)
-                    {
-                        param.answerList.Add(new KeyValuePair<Guid, string>(item.QuestionId, item.Answer.First()));
-                    }
-                }
+                
 
                 var response = await ApiCaller.Call(QuestionnaireApiUrl.NextStep, param);
                 if (!response.IsSuccessful || response.Content == null)

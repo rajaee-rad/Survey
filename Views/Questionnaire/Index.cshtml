@@ -166,7 +166,8 @@
         $.ajax({
             url:'/Questionnaire/NextStep',
             type:'POST',
-            data:  JSON.stringify({questionnaireId: questionnaireId,currentStepId:currentStepId,answerSheetId:answerSheetId,answerData: data}),
+            data:  JSON.stringify({questionnaireId: questionnaireId,currentStepId:currentStepId,answerSheetId:answerSheetId,
+            answerData: data, model:$('#QuestionnaireForm').serialize()}),
             contentType: "application/json",
             success: function (result){
                 console.log(result);

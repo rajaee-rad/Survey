@@ -12,7 +12,6 @@ namespace CustomerSurveySystem.Models
         public string Description { get; set; }
         public double OrderNumber { get; set; }
         public QuestionType QuestionType { get; set; }
-        public IList<AnswerOfQuestion> Answers { get; set; }
         public bool SingleSelect { get; set; }
         public bool NeedDescription { get; set; }
         public bool IsRequire { get; set; }

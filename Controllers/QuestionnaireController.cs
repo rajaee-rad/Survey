@@ -68,17 +68,23 @@ namespace CustomerSurveySystem.Controllers
 
         [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> NextStep(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
-             IList<AnswerOfQuestion> answerData)
+             IList<AnswerOfQuestion> answerData, IList<QuestionDto> model)
         {
          
-            var dto = new NextStepSendData()
-            {
-                QuestionnaireId = questionnaireId ?? (Guid.Empty),
-                AnswerSheetId = answerSheetId ?? (Guid.Empty),
-                CurrentStepId = currentStepId ?? (Guid.Empty),
-                Answers =  answerData
-            };
-           var result = await  _service.NextStep(dto);
+          
+          
+            // var dto = new NextStepSendData()
+            // {
+            //     QuestionnaireId = questionnaireId ?? (Guid.Empty),
+            //     AnswerSheetId = answerSheetId ?? (Guid.Empty),
+            //     CurrentStepId = currentStepId ?? (Guid.Empty),
+            // };
+           
+            //{Data: {$NetType: "MultiChoice", Value: ["خیلی زیاد", "زیاد", "متوسط", "کم"]}}
+            //{Data: {$NetType: "Text", Value: "sdsadsad"}}
+            //Data: {$NetType: "MultiChoice", Value: ["بسیار آسان"]}
+            //Data: {$NetType: "Score", Value: 5}
+          // var result = await  _service.NextStep(dto);
             //return  RedirectToAction("NextStep", questionnaireId)
             return null;
         }
