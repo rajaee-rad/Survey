@@ -60,6 +60,7 @@
                                                     {
                                                         <div class="form-group">
                                                             <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" required check-ifanychecked="input[type=checkbox][id*=@item.QuestionId]" hidden/>
                                                                 <input class="custom-control-input"
                                                                        @(item.IsRequire ? "required" : "")
                                                                        id="@($"customCheckbox_{j}_{item.QuestionId}")"
@@ -101,7 +102,7 @@
                                         @if (item.QuestionType == QuestionType.Score)
                                         {
                                             <h5>@item.OrderNumber-@item.Title</h5>
-                                            <input id="@($"score_{item.QuestionId}")" @(item.IsRequire ? "required" : "")  class="rating rating-loading" data-min="0" data-max="5" data-step="1">
+                                            <input id="@($"score_{item.QuestionId}")" @(item.IsRequire ? "required" : "") class="rating rating-loading" data-min="0" data-max="5" data-step="1">
                                             <hr/>
                                         }
                                         @if (item.QuestionType == QuestionType.Number)
