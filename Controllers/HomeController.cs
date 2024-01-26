@@ -26,7 +26,7 @@ namespace CustomerSurveySystem.Controllers
         public async Task<ActionResult> Index()
         {
             var questionnairesOfWebsite = await _service.GetQuestionnairesOfWebsite();
-            if (!questionnairesOfWebsite.Any())
+            if (questionnairesOfWebsite == null || !questionnairesOfWebsite.Any())
             {
                 return View(Enumerable.Empty<Questionnaire>().ToList());
             }

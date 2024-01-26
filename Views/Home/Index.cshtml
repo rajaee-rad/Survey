@@ -15,7 +15,7 @@
 </div>
 <div class="card-body">
     <div>
-        @if (!Model.Any())
+        @if (Model == null || !Model.Any())
         {
             <p>نظرسنجی فعالی وجود ندارد!</p>
         }
