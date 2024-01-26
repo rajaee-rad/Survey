@@ -81,10 +81,13 @@ namespace CustomerSurveySystem.Controllers
                 var answersList = new List<Data>();
                 foreach (var item in questions)
                 {
-                    var dto = new Data();
-                    dto.QuestionId = item.QuestionId;
+                    var dto = new Data
+                    {
+                        QuestionId = item.QuestionId
+                    };
                     foreach (var answer in answerData)
                     {
+                       
                         if (answer.QuestionId == item.QuestionId)
                         {
                             dto.Answer = new AnswerData();
@@ -130,9 +133,8 @@ namespace CustomerSurveySystem.Controllers
                     CurrentStepId = currentStepId ?? (Guid.Empty),
                     Answers = answersList
                 };
-
+               
                 var result = await _service.NextStep(sendAnswerDto);
-                //return  RedirectToAction("NextStep", questionnaireId)
                 return null;
             }
             catch (Exception ex)

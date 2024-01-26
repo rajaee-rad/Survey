@@ -53,7 +53,7 @@ namespace CustomerSurveySystem.Services.Class
                     answerSheetId = sendData.AnswerSheetId,
                     currentStepId = sendData.CurrentStepId,
                     questionnaireId = sendData.QuestionnaireId,
-                    answerList =  sendData.Answers
+                    answerList =  JsonConvert.SerializeObject(sendData.Answers)
                 };
                 
 
@@ -74,35 +74,6 @@ namespace CustomerSurveySystem.Services.Class
             return null;
         }
 
-        public async Task<IList<QuestionDto>> NextStepForWeb(NextStepSendData sendData)
-        {
-            try
-            {
-                var param = new
-                {
-                    answerSheetId = sendData.AnswerSheetId,
-                    currentStepId = sendData.CurrentStepId,
-                    questionnaireId = sendData.QuestionnaireId,
-                    answerList =  sendData.Answers
-                };
-                
-
-                var response = await ApiCaller.Call(QuestionnaireApiUrl.NextStepForWeb, param);
-                if (!response.IsSuccessful || response.Content == null)
-                {
-                    return null;
-                }
-
-                var result = JsonConvert.DeserializeObject<Response<QuestionDto>>(response.Content)?.Data;
-                return result;
-            }
-            catch (Exception e)
-            {
-                Log.Logger.Fatal($"Error at NextStepForWeb! {e.Message}");
-            }
-
-            return null;
-        }
 
         public async Task<CustomerDto> RequestCustomer(string nationalCode)
         {
