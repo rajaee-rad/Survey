@@ -195,6 +195,7 @@
     <Compile Include="Models\AnswerOfQuestion.cs" />
     <Compile Include="Models\AuthenticationResponse.cs" />
     <Compile Include="Models\CustomerDto.cs" />
+    <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\SurveyQuestion.cs" />
     <Compile Include="Models\NextStepSendData.cs" />
     <Compile Include="Models\QuestionDto.cs" />
