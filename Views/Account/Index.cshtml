@@ -1,4 +1,5 @@
-﻿@{
+﻿@using CaptchaMvc.HtmlHelpers
+@{
     Layout = "";
 }
 <!DOCTYPE html>
@@ -48,6 +49,17 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-12">
+                        <div>@Html.MathCaptcha()</div>
+                        <br/>
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i> هشدار!</h5>
+                            پیشنمایش آلرت هشدار. این هشدار غیر قابل بسته شدن است.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
                             <input type="checkbox" id="remember">
@@ -60,6 +72,7 @@
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block">ورود</button>
                     </div>
+
                     <!-- /.col -->
                 </div>
             }

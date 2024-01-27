@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using CaptchaMvc.HtmlHelpers;
 using CustomerSurveySystem.Services.Interface;
 
 namespace CustomerSurveySystem.Controllers
@@ -22,6 +23,11 @@ namespace CustomerSurveySystem.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(string nationalCode, string password)
         {
+            if (!this.IsCaptchaValid("کپچا نامعتبر است."))
+            {
+                ViewBag.ErorrMessage = "کپچا نامعتبر است.";
+                return RedirectToAction("Index", "Account");
+            }
             var result =  await _service.Login(nationalCode, password);
             if (result)
             {
