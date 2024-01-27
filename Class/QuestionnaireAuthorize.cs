@@ -20,12 +20,11 @@ namespace CustomerSurveySystem.Class
             try
             {
 
-                // var memoryCache = MemoryCache.Default;
-                // if (memoryCache.Contains(TokenCacheKey))
-                // {
-                //     memoryCache.Remove()
-                //     //return memoryCache.Get(TokenCacheKey)?.ToString();
-                // }
+                var memoryCache = MemoryCache.Default;
+                if (memoryCache.Contains(TokenCacheKey))
+                {
+                    return memoryCache.Get(TokenCacheKey)?.ToString();
+                }
 
 
                 var client = new RestClient(ConfigurationManager.AppSettings["QuestionnaireHost"]);
@@ -49,7 +48,7 @@ namespace CustomerSurveySystem.Class
                         CultureInfo.InvariantCulture),
                 };
 
-                //memoryCache.Add(TokenCacheKey, tokenResponse.AccessToken, cacheItemPolicy);
+                memoryCache.Add(TokenCacheKey, tokenResponse.AccessToken, cacheItemPolicy);
                 return tokenResponse.AccessToken;
 
             }

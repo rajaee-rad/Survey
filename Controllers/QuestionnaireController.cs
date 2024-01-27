@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Mvc;
 using CustomerSurveySystem.Enums;
 using CustomerSurveySystem.Models;
-using CustomerSurveySystem.Services.Class;
 using CustomerSurveySystem.Services.Interface;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Identity;
@@ -26,8 +23,9 @@ namespace CustomerSurveySystem.Controllers
         {
             _service = service;
         }
-
-        [System.Web.Mvc.HttpPost]
+       
+       
+        [System.Web.Http.HttpPost]
         public async Task<ActionResult> Index(Guid questionnaireId, bool? needLogin)
         {
             if (needLogin.HasValue && needLogin.Value && !User.Identity.IsAuthenticated)
@@ -37,7 +35,7 @@ namespace CustomerSurveySystem.Controllers
 
             // var customer = await _service.RequestCustomer(User.Identity.GetUserId());
             //var answerSheetId = await _service.GetAnswerSheetIdByQuestionnaireId(questionnaireId, customer.Id.ToString());
-            ViewData["AnswerSheetId"] = Guid.Parse("D9A7FE2F-51AD-4F84-9D65-B0FD000CBA3A");
+            ViewData["AnswerSheetId"] = Guid.Parse("8d7a07cd-5b97-4fdb-a8fa-b10400e0b0f7");
             ViewData["QuestionnaireId"] = questionnaireId;
 
             List<QuestionDto> result;
@@ -67,7 +65,7 @@ namespace CustomerSurveySystem.Controllers
             return View(result);
         }
 
-        [System.Web.Mvc.HttpPost]
+        
         public async Task<ActionResult> NextStep(Guid? answerSheetId, Guid? currentStepId, Guid? questionnaireId,
             IList<AnswerOfQuestion> answerData)
         {
@@ -135,7 +133,9 @@ namespace CustomerSurveySystem.Controllers
                     return RedirectToAction("Index", "Questionnaire", new
                     {
                         questionnaireId = questionnaireId.Value,
-                        answerSheetId = answerSheetId.Value
+                        answerSheetId = answerSheetId.Value,
+                        currentStepId = result.First().CurrentStepId,
+                        questions = result
                     });
                 }
             }
