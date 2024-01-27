@@ -26,28 +26,7 @@ namespace CustomerSurveySystem.Controllers
         {
             _service = service;
         }
-        [System.Web.Mvc.HttpGet]
-        public async Task<ActionResult> Index(Guid questionnaireId, Guid answerSheetId, IList<QuestionDto> questions)
-        {
-           
-            ViewData["AnswerSheetId"] = answerSheetId;
-            ViewData["QuestionnaireId"] = questionnaireId;
-            
-            foreach (var question in questions)
-            {
-                if (question.QuestionType != QuestionType.MultiChoice) continue;
-                var multiChoiceData =
-                    JsonConvert.DeserializeObject<SurveyQuestion>(question.QuestionDetail.ToString());
-                question.Questions = new SurveyQuestionDetail()
-                {
-                    Options = multiChoiceData.QuestionDetail.Options,
-                    MaxSelectable = multiChoiceData.QuestionDetail.MaxSelectable,
-                    IsMultiSelect = multiChoiceData.QuestionDetail.IsMultiSelect,
-                    NetType = multiChoiceData.QuestionDetail.NetType
-                };
-            }
-            return View(questions);
-        }
+
         [System.Web.Mvc.HttpPost]
         public async Task<ActionResult> Index(Guid questionnaireId, bool? needLogin)
         {
@@ -129,7 +108,7 @@ namespace CustomerSurveySystem.Controllers
                                 Value = item.Answer,
                                 Description = item.Description
                             };
-                            
+
                             break;
                         default:
                             dto.Answer.Data = new MultiChoice()
@@ -153,7 +132,11 @@ namespace CustomerSurveySystem.Controllers
                 var result = await _service.NextStep(sendAnswerDto);
                 if (result != null && result.Any())
                 {
-                    //return RedirectToAction("Index", "Questionnaire", new{ questionnaireId.Value, result, answerSheetId.Value});
+                    return RedirectToAction("Index", "Questionnaire", new
+                    {
+                        questionnaireId = questionnaireId.Value,
+                        answerSheetId = answerSheetId.Value
+                    });
                 }
             }
             catch (Exception ex)
